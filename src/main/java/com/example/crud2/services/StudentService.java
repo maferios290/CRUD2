@@ -61,19 +61,17 @@ public class StudentService {
         return ResponseEntity.badRequest().body(Map.of("Error", "Estudiante con ID " + id + " no encontrado"));
     }
 
-    // Método para eliminar un estudiante por ID fijo (ID 1)
+    // Método para eliminar un estudiante por su ID seleccionado
     public ResponseEntity<?> deleteStudentById(Long id) {
-        // Usamos un ID fijo para la eliminación (por ejemplo, ID 1)
-        Long fixedId = 1L; // ID fijo para el estudiante que queremos eliminar
         Optional<StudentEntity> studentToRemove = students.stream()
-                .filter(s -> s.getId().equals(fixedId))
+                .filter(s -> s.getId().equals(id))
                 .findFirst();
 
         if (studentToRemove.isPresent()) {
             students.remove(studentToRemove.get());
             return ResponseEntity.ok(Map.of("Mensaje", "Estudiante eliminado exitosamente"));
         } else {
-            return ResponseEntity.badRequest().body(Map.of("Error", "Estudiante con ID " + fixedId + " no encontrado"));
+            return ResponseEntity.badRequest().body(Map.of("Error", "Estudiante con ID " + id + " no encontrado"));
         }
     }
 }
